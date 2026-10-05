@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://terradue.github.io/pystac-ext-processing/how-to/use-extension/" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>Work with processing metadata - Processing PySTAC extension</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../assets/_mkdocstrings.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Work with processing metadata";
+        var mkdocs_page_input_path = "how-to/use-extension.md";
+        var mkdocs_page_url = "/pystac-ext-processing/how-to/use-extension/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> Processing PySTAC extension
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Tutorials</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../tutorials/">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../tutorials/first-steps/">First steps</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">How-to guides</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../install/">Install</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Work with processing metadata</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#update-or-remove-a-field">Update or remove a field</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#attach-asset-fields">Attach Asset fields</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#manage-collection-summaries">Manage Collection summaries</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#use-collection-item-asset-definitions">Use Collection item asset definitions</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#describe-a-processing-provider">Describe a processing Provider</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#link-provenance-resources">Link provenance resources</a>
+    </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Reference</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../reference/">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../reference/fields/">Processing fields</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../reference/api/">Python API</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Explanation</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../explanation/">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../explanation/architecture/">Architecture</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">Processing PySTAC extension</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">How-to guides</li>
+      <li class="breadcrumb-item active">Work with processing metadata</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/Terradue/pystac-ext-processing/edit/main/docs/how-to/use-extension.md">Edit on pystac-ext-processing</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <!--
+Copyright 2026 Terradue
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+
+<h1 id="work-with-processing-metadata">Work with processing metadata<a class="headerlink" href="#work-with-processing-metadata" title="Permanent link">&para;</a></h1>
+<p>Run the <a href="../../tutorials/first-steps/">tutorial</a> first. The examples below continue with its imports, Item, and timestamps, in order.</p>
+<h2 id="update-or-remove-a-field">Update or remove a field<a class="headerlink" href="#update-or-remove-a-field" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><span class="n">processing</span><span class="o">.</span><span class="n">level</span> <span class="o">=</span> <span class="s2">"L3"</span>
+<span class="n">processing</span><span class="o">.</span><span class="n">lineage</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="k">assert</span> <span class="s2">"processing:lineage"</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">item</span><span class="o">.</span><span class="n">properties</span>
+</code></pre></div>
+<p><code>ProcessingExtension.ext(item)</code> requires extension membership. Pass <code>add_if_missing=True</code> to add it. Use individual setters to preserve other values; <code>apply()</code> clears omitted fields.</p>
+<h2 id="attach-asset-fields">Attach Asset fields<a class="headerlink" href="#attach-asset-fields" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><span class="n">asset</span> <span class="o">=</span> <span class="n">pystac</span><span class="o">.</span><span class="n">Asset</span><span class="p">(</span><span class="n">href</span><span class="o">=</span><span class="s2">"https://example.org/product.tif"</span><span class="p">,</span> <span class="n">media_type</span><span class="o">=</span><span class="s2">"image/tiff"</span><span class="p">)</span>
+<span class="n">item</span><span class="o">.</span><span class="n">add_asset</span><span class="p">(</span><span class="s2">"data"</span><span class="p">,</span> <span class="n">asset</span><span class="p">)</span>
+<span class="n">asset_processing</span> <span class="o">=</span> <span class="n">ProcessingExtension</span><span class="o">.</span><span class="n">ext</span><span class="p">(</span><span class="n">asset</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">asset_processing</span><span class="o">.</span><span class="n">level</span> <span class="o">==</span> <span class="s2">"L3"</span>
+<span class="n">asset_processing</span><span class="o">.</span><span class="n">level</span> <span class="o">=</span> <span class="s2">"L2"</span>
+<span class="k">assert</span> <span class="n">asset</span><span class="o">.</span><span class="n">extra_fields</span><span class="p">[</span><span class="s2">"processing:level"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"L2"</span>
+<span class="k">assert</span> <span class="n">processing</span><span class="o">.</span><span class="n">level</span> <span class="o">==</span> <span class="s2">"L3"</span>
+<span class="n">asset_processing</span><span class="o">.</span><span class="n">level</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="k">assert</span> <span class="n">asset_processing</span><span class="o">.</span><span class="n">level</span> <span class="o">==</span> <span class="s2">"L3"</span>
+</code></pre></div>
+<p>Attach Assets to their owner before wrapping them. Missing Asset fields fall back to an Item owner's properties; writes affect only the Asset. Extension membership is checked or added on the owner.</p>
+<h2 id="manage-collection-summaries">Manage Collection summaries<a class="headerlink" href="#manage-collection-summaries" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><span class="n">collection</span> <span class="o">=</span> <span class="n">pystac</span><span class="o">.</span><span class="n">Collection</span><span class="p">(</span>
+    <span class="nb">id</span><span class="o">=</span><span class="s2">"example-collection"</span><span class="p">,</span>
+    <span class="n">description</span><span class="o">=</span><span class="s2">"Example processed products"</span><span class="p">,</span>
+    <span class="n">extent</span><span class="o">=</span><span class="n">pystac</span><span class="o">.</span><span class="n">Extent</span><span class="p">(</span>
+        <span class="n">pystac</span><span class="o">.</span><span class="n">SpatialExtent</span><span class="p">([[</span><span class="o">-</span><span class="mf">180.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">90.0</span><span class="p">,</span> <span class="mf">180.0</span><span class="p">,</span> <span class="mf">90.0</span><span class="p">]]),</span>
+        <span class="n">pystac</span><span class="o">.</span><span class="n">TemporalExtent</span><span class="p">([[</span><span class="n">acquired_at</span><span class="p">,</span> <span class="kc">None</span><span class="p">]]),</span>
+    <span class="p">),</span>
+    <span class="n">license</span><span class="o">=</span><span class="s2">"proprietary"</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">summaries</span> <span class="o">=</span> <span class="n">ProcessingExtension</span><span class="o">.</span><span class="n">summaries</span><span class="p">(</span><span class="n">collection</span><span class="p">,</span> <span class="n">add_if_missing</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">summaries</span><span class="o">.</span><span class="n">level</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"L2"</span><span class="p">,</span> <span class="s2">"L3"</span><span class="p">]</span>
+<span class="n">summaries</span><span class="o">.</span><span class="n">processing_datetime</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"2024-01-02T12:00:00Z"</span><span class="p">]</span>
+<span class="n">summaries</span><span class="o">.</span><span class="n">software</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">"type"</span><span class="p">:</span> <span class="s2">"object"</span><span class="p">,</span>
+    <span class="s2">"properties"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"example-processor"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"type"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">}},</span>
+<span class="p">}</span>
+<span class="k">assert</span> <span class="n">summaries</span><span class="o">.</span><span class="n">level</span> <span class="o">==</span> <span class="p">[</span><span class="s2">"L2"</span><span class="p">,</span> <span class="s2">"L3"</span><span class="p">]</span>
+<span class="k">assert</span> <span class="n">summaries</span><span class="o">.</span><span class="n">processing_datetime</span> <span class="o">==</span> <span class="p">[</span><span class="s2">"2024-01-02T12:00:00Z"</span><span class="p">]</span>
+<span class="n">summaries</span><span class="o">.</span><span class="n">software</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="k">assert</span> <span class="n">summaries</span><span class="o">.</span><span class="n">software</span> <span class="ow">is</span> <span class="kc">None</span>
+</code></pre></div>
+<p>Summary accessors read and replace whole lists or schema dictionaries. They do not aggregate Items or offer <code>apply()</code>. Passing a Collection to <code>ProcessingExtension.ext()</code> raises <code>pystac.ExtensionTypeError</code>.</p>
+<h2 id="use-collection-item-asset-definitions">Use Collection item asset definitions<a class="headerlink" href="#use-collection-item-asset-definitions" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><span class="n">collection</span><span class="o">.</span><span class="n">item_assets</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">"data"</span><span class="p">:</span> <span class="n">pystac</span><span class="o">.</span><span class="n">ItemAssetDefinition</span><span class="p">({</span><span class="s2">"type"</span><span class="p">:</span> <span class="s2">"image/tiff"</span><span class="p">,</span> <span class="s2">"roles"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"data"</span><span class="p">]}),</span>
+<span class="p">}</span>
+<span class="n">definition</span> <span class="o">=</span> <span class="n">collection</span><span class="o">.</span><span class="n">item_assets</span><span class="p">[</span><span class="s2">"data"</span><span class="p">]</span>
+<span class="n">definition_processing</span> <span class="o">=</span> <span class="n">ProcessingExtension</span><span class="o">.</span><span class="n">ext</span><span class="p">(</span><span class="n">definition</span><span class="p">,</span> <span class="n">add_if_missing</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">definition_processing</span><span class="o">.</span><span class="n">level</span> <span class="o">=</span> <span class="s2">"L2"</span>
+<span class="k">assert</span> <span class="n">definition</span><span class="o">.</span><span class="n">properties</span><span class="p">[</span><span class="s2">"processing:level"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"L2"</span>
+</code></pre></div>
+<p>Retrieve definitions through <code>collection.item_assets</code> so PySTAC attaches their Collection owner.</p>
+<h2 id="describe-a-processing-provider">Describe a processing Provider<a class="headerlink" href="#describe-a-processing-provider" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><span class="n">provider</span> <span class="o">=</span> <span class="n">pystac</span><span class="o">.</span><span class="n">Provider</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">"Example processing centre"</span><span class="p">,</span>
+    <span class="n">roles</span><span class="o">=</span><span class="p">[</span><span class="n">pystac</span><span class="o">.</span><span class="n">ProviderRole</span><span class="o">.</span><span class="n">PROCESSOR</span><span class="p">],</span>
+<span class="p">)</span>
+<span class="n">provider_processing</span> <span class="o">=</span> <span class="n">ProcessingExtension</span><span class="o">.</span><span class="n">provider</span><span class="p">(</span><span class="n">provider</span><span class="p">)</span>
+<span class="n">provider_processing</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="s2">"L2"</span><span class="p">,</span> <span class="n">software</span><span class="o">=</span><span class="p">{</span><span class="s2">"example-processor"</span><span class="p">:</span> <span class="s2">"1.0.0"</span><span class="p">})</span>
+<span class="n">collection</span><span class="o">.</span><span class="n">providers</span> <span class="o">=</span> <span class="p">[</span><span class="n">provider</span><span class="p">]</span>
+<span class="n">ProcessingExtension</span><span class="o">.</span><span class="n">add_to</span><span class="p">(</span><span class="n">collection</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">provider</span><span class="o">.</span><span class="n">extra_fields</span><span class="p">[</span><span class="s2">"processing:level"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"L2"</span>
+</code></pre></div>
+<p>The Provider wrapper writes <code>extra_fields</code>. It does not check roles or manage extension membership; declare the extension on the Collection separately.</p>
+<h2 id="link-provenance-resources">Link provenance resources<a class="headerlink" href="#link-provenance-resources" title="Permanent link">&para;</a></h2>
+<p>Use ordinary PySTAC links for the <a href="https://github.com/stac-extensions/processing#relation-types">specification's relation types</a>: <code>derived_from</code> for inputs, <code>processing-expression</code> for a script, <code>processing-execution</code> for a run, <code>processing-software</code> for dependencies, and <code>processing-validation</code> for validation results.</p>
+<div class="highlight"><pre><span></span><code><span class="n">item</span><span class="o">.</span><span class="n">add_link</span><span class="p">(</span><span class="n">pystac</span><span class="o">.</span><span class="n">Link</span><span class="p">(</span>
+    <span class="n">rel</span><span class="o">=</span><span class="s2">"derived_from"</span><span class="p">,</span>
+    <span class="n">target</span><span class="o">=</span><span class="s2">"https://example.org/source-item.json"</span><span class="p">,</span>
+    <span class="n">media_type</span><span class="o">=</span><span class="s2">"application/geo+json"</span><span class="p">,</span>
+<span class="p">))</span>
+<span class="n">item</span><span class="o">.</span><span class="n">add_link</span><span class="p">(</span><span class="n">pystac</span><span class="o">.</span><span class="n">Link</span><span class="p">(</span>
+    <span class="n">rel</span><span class="o">=</span><span class="s2">"processing-expression"</span><span class="p">,</span>
+    <span class="n">target</span><span class="o">=</span><span class="s2">"https://example.org/process.py"</span><span class="p">,</span>
+    <span class="n">media_type</span><span class="o">=</span><span class="s2">"text/plain"</span><span class="p">,</span>
+<span class="p">))</span>
+</code></pre></div>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../install/" class="btn btn-neutral float-left" title="Install"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../../reference/" class="btn btn-neutral float-right" title="Overview">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/Terradue/pystac-ext-processing" class="fa fa-code-fork" style="color: #fcfcfc"> pystac-ext-processing</a>
+        </span>
+    
+    
+      <span><a href="../install/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../../reference/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
