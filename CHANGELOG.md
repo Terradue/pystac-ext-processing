@@ -37,11 +37,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-## [1.2.0] - 2026-10-05
+## [1.2.0] - 2026-10-06
 
 ### Added
 
 - Initial project release.
 
 [Unreleased]: https://github.com/Terradue/pystac-ext-processing/compare/1.2.0...HEAD
-[1.0.0]: https://github.com/Terradue/pystac-ext-processing/releases/tag/1.2.0
+[1.2.0]: https://github.com/Terradue/pystac-ext-processing/releases/tag/1.2.0
